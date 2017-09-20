@@ -52,12 +52,13 @@ public class DataSourceHolder {
 
 对于注解方式，下面提供DataSource自定义注解类，在每个需要更改数据源的函数上面加上DataSource注解即可。
 
+
 @Inherited
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DataSourceManage {
 	String name() default "";
-	// 数据库的数量，默认只多数据源，故默认为0，多从库的可设置为从库数量
+	
 	int dbSize() default 0;
 }
 
