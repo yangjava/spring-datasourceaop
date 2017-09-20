@@ -2,7 +2,8 @@
 
 解决方案：
 
-　　　　spring提供了一个类，AbstractRoutingDataSource，可以创建多个数据库，并在几个数据库中进行切换。建议读者在读本文之前先了解一下这个类的使用
+　　　　spring提供了一个类，AbstractRoutingDataSource，可以创建多个数据库，并在几个数据库中进行切换。
+    建议读者在读本文之前先了解一下这个类的使用
 
 　　　　afterPropertiesSet()，
 
@@ -12,7 +13,9 @@
 
 　　　　上面这3个方法是AbstractRoutingDataSource类中的3个方法，这个方案也是基于这3个方法来实现的,
     
-    Spring动态切换数据库的原理是通过继承AbstractRoutingDataSource重写determineCurrentLookupKey()方法，来决定使用那个数据库。在开启事务之前，通过改变lookupKey来达到切换数据源目的。
+    Spring动态切换数据库的原理是通过继承AbstractRoutingDataSource
+    
+    重写determineCurrentLookupKey()方法，来决定使用那个数据库。在开启事务之前，通过改变lookupKey来达到切换数据源目的。
     
     DynamicDataSource类
     
@@ -58,7 +61,7 @@ public @interface DataSourceManage {
 	int dbSize() default 0;
 }
 
-数据库连接类
+
 
 
 
@@ -70,29 +73,7 @@ public class DatasourceAop {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(DatasourceAop.class);
 
-/*	@Around("@annotation(dataSourceManage)")
-	public Object doAround(ProceedingJoinPoint joinPoint,
-			DataSourceManage dataSourceManage) throws Throwable {
-		LOGGER.info("DatasourceAop doAround ");
-		Object retVal = null;
-		boolean selectedDataSource = false;
-		try {
-			if (null != dataSourceManage) {
-				String dbName = dataSourceManage.name();
-				DataSourceHolder.setDataSource(dbName);
-				LOGGER.info("DatasourceAop run dbName " + dbName);
-				selectedDataSource = true;
-			}
-			retVal = joinPoint.proceed();
-		} catch (Throwable e) {
-			throw e;
-		} finally {
-			if (selectedDataSource) {
-				DataSourceHolder.clearDataSource();
-			}
-		}
-		return retVal;
-	}*/
+
 	
 	@Before("@annotation(dataSourceManage)")
 	 public void intercept(JoinPoint point, DataSourceManage dataSourceManage) throws Exception {
