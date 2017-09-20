@@ -54,8 +54,11 @@ public class DataSourceHolder {
 
 
 @Inherited
+
 @Target(ElementType.METHOD)
+
 @Retention(RetentionPolicy.RUNTIME)
+
 public @interface DataSourceManage {
 	String name() default "";
 	
